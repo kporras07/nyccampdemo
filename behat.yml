@@ -55,3 +55,12 @@ wercker:
     Drupal\DrupalExtension:
       drupal:
         drupal_root: "/pipeline/source/build"
+travis:
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://nyccampdemo.dev:8080
+      selenium2: ~
+      browser_name: chrome
+    Drupal\DrupalExtension:
+      drupal:
+        drupal_root: "/home/travis/build/kporras07/nyccampdemo/build"
