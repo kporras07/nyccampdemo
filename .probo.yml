@@ -5,10 +5,27 @@ steps:
     command: 'curl https://github.com/pantheon-systems/terminus/releases/download/0.11.0/terminus.phar -L -o $HOME/terminus && chmod +x $HOME/terminus'
   - name: Login to terminus
     command: 'source $ASSET_DIR/token.sh ; $HOME/terminus auth login --machine-token=$PANTHEON_TOKEN'
+  - name: Download node script.
+    command: wget -q https://deb.nodesource.com/setup_4.x
+  - name: set right permissions.
+    command: chmod +x setup_4.x
+  - name: Execute node script.
+    command: ./setup_4.x
+  - name: Delete node script.
+    command: rm setup_4.x
+  - name: Install node.
+    command: apt-get install nodejs -y
+  - name: Install npm dependencies.
+    command: npm install
+  - name: Install composer dependencies.
+    command: composer install --prefer-source --no-interaction
+  - name: Build site
+    command: ./node_modules/.bin/aquifer build
   - name: Download DB
     command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
   - name: Probo site setup
     plugin: Drupal
+    subdirectory: build
     database: test-export.sql.gz
     databaseGzipped: true
     databaseUpdates: false
@@ -27,8 +44,8 @@ steps:
     command: 'drush --root="/var/www/nyccampdemo/build" cc all'
   - name: Debug
     command: 'env'
-  - name: Debug 2
-    command: 'pwd'
+  - name: ls
+    command: 'ls'
   - name: Debug 3
     command: 'whoami'
 
