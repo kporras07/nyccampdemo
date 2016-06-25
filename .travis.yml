@@ -1,13 +1,49 @@
 language: php
 php:
   - '5.6'
+services:
+  - mysql
 
 before_install:
   - nvm install 4.2
   - nvm use 4.2
+  - mysql -u root -e 'create database drupal;'
 install:
   - composer install --prefer-source --no-interaction
   - npm install
+  - composer global require drush/drush:7.1.* --no-interaction
+  - mkdir -p ~/.drush
+  - cp ./travis/nyccampdemo.aliases.drushrc.php ~/.drush
+  - ln -s ~/.composer/vendor/bin/drush /usr/bin/drush
+  # Drupal settings.
+  - cp ./travis/travis.settings.secret.php ./settings/settings.secret.php
+  # Configure Apache.
+  - cp ./travis/nyccampdemo.dev.conf /etc/apache2/sites-available/
+  - a2ensite nyccampdemo.dev
+  - a2enmod rewrite
+  - service apache2 restart
+  # Edit hosts file.
+  - echo "127.0.0.1 nyccampdemo.dev" >> /etc/hosts
+  # Prepare Drupal Installation and Install it.
+  # Build the Drupal site and set files permissions.
+  - chown -R root:www-data ./files
+  - ./node_modules/.bin/aquifer build
+  - chmod 777 -R ./build/sites/default/files
+  - ./node_modules/.bin/aquifer extensions-load
+  - chown -R www-data:www-data ./build/sites/default/files
+  # Set alias.
+  - drush site-set @nyccampdemo.nyccampdemo.dev
+  - drush cc drush
+  # Start mysql and apache servers.
+  - service apache2 start
+  - service mysql start
+  # Install Drupal and disable sendmail.
+  - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush si -y nyccampdemo
+  # Post build configuration.
+  - drush cc drush
+  - drush master-set-current-scope local
+  - drush master-execute -y
+  - drush cc all
 
 script:
   - env
