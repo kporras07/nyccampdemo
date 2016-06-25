@@ -34,17 +34,14 @@ install:
   - sudo sh -c 'echo "127.0.0.1 nyccampdemo.dev" >> /etc/hosts'
   # Prepare Drupal Installation and Install it.
   # Build the Drupal site and set files permissions.
-  - chown -R root:www-data ./files
+  - sudo chown -R root:www-data ./files
   - ./node_modules/.bin/aquifer build
-  - chmod 777 -R ./build/sites/default/files
+  - sudo chmod 777 -R ./build/sites/default/files
   - ./node_modules/.bin/aquifer extensions-load
-  - chown -R www-data:www-data ./build/sites/default/files
+  - sudo chown -R www-data:www-data ./build/sites/default/files
   # Set alias.
   - drush site-set @nyccampdemo.nyccampdemo.dev
   - drush cc drush
-  # Start mysql and apache servers.
-  - service apache2 start
-  - service mysql start
   # Install Drupal and disable sendmail.
   - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush si -y nyccampdemo
   # Post build configuration.
