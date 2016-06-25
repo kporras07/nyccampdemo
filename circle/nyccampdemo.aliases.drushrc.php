@@ -4,8 +4,8 @@
  * CircleCI Drush Aliases.
  */
 
-$aliases['<%= appName %>.dev'] = array(
-  'uri' => '<%= appName %>.dev',
-  'root' => '/home/ubuntu/<%= appName %>/build',
+$aliases['nyccampdemo.dev'] = array(
+  'uri' => 'nyccampdemo.dev',
+  'root' => '/home/ubuntu/nyccampdemo/build',
 );
 
