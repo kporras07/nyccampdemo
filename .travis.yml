@@ -31,7 +31,7 @@ install:
   - sudo a2enmod rewrite
   - sudo service apache2 restart
   # Edit hosts file.
-  - echo "127.0.0.1 nyccampdemo.dev" >> /etc/hosts
+  - sudo sh -c 'echo "127.0.0.1 nyccampdemo.dev" >> /etc/hosts'
   # Prepare Drupal Installation and Install it.
   # Build the Drupal site and set files permissions.
   - chown -R root:www-data ./files
