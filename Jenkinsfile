@@ -1,7 +1,6 @@
 node('node') {
 
 
-    def err = null
     currentBuild.result = "SUCCESS"
 
     try {
