@@ -20,4 +20,8 @@ steps:
     command: 'drush --root="/var/www/nyccampdemo/build" updb -y'
     command: 'drush --root="/var/www/nyccampdemo/build" fra -y'
     command: 'drush --root="/var/www/nyccampdemo/build" cc all'
+  - name: Debug
+    command: env
+    command: pwd
+    command: whoami
 
