@@ -62,4 +62,4 @@ script:
   # Available updates.
   - drush @nyccampdemo.nyccampdemo.dev ups | grep -qi "update available" && (echo 'Updates available FAIL' && exit 1) || (echo 'No updates available PASS' && exit 0)
   # Behat tests.
-  - ./vendor/bin/behat -p wercker
+  - ./vendor/bin/behat -p travis
