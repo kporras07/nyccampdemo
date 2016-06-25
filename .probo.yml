@@ -25,12 +25,9 @@ steps:
     command: 'cd $SRC_DIR && ./node_modules/.bin/aquifer build'
   - name: Download DB
     command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
-  - name: Create DB
-    command: mysql -e 'create database drupal'
-  - name: Grant privileges
-    command: mysql -e 'grant all on drupal.* to "root"@"localhost"'
-  - name: Flush privileges
-    command: mysql -e 'flush privileges'
+  - name: Setup Drupal
+    plugin: Drupal
+    subDirectory: build
   - name: Import DB.
     command: 'gunzip -c $ASSET_DIR/test-export.sql.gz | drush --root="$SRC_DIR/build" sqlc'
   - name: Master Enable
@@ -45,7 +42,4 @@ steps:
     command: 'drush --root="$SRC_DIR/build" fra -y'
   - name: cc all
     command: 'drush --root="$SRC_DIR/build" cc all'
-  - name: Setup Drupal
-    plugin: Drupal
-    subDirectory: build
 
