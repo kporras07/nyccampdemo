@@ -6,7 +6,7 @@ steps:
   - name: Login to terminus
     command: 'source $ASSET_DIR/token.sh ; $HOME/terminus auth login --machine-token=$PANTHEON_TOKEN'
   - name: Download DB
-    command: '$HOME/terminus site backups get --site=test-db-export --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
+    command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
   - name: Probo site setup
     plugin: Drupal
     database: test-export.sql.gz
