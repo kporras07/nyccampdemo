@@ -27,7 +27,7 @@ install:
   - sudo ln -s ~/.composer/vendor/bin/drush /usr/bin/drush
   # Configure Apache.
   - sudo cp ./travis/nyccampdemo.dev.conf /etc/apache2/sites-available/
-  - sudo a2ensite nyccampdemo.dev
+  - sudo a2ensite nyccampdemo.dev.conf
   - sudo a2enmod rewrite
   - sudo service apache2 restart
   # Edit hosts file.
