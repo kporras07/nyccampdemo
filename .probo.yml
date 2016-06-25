@@ -19,17 +19,20 @@ steps:
     command: 'cd $SRC_DIR && npm install'
   - name: Install composer dependencies.
     command: 'cd $SRC_DIR && composer install --prefer-source --no-interaction'
+  - name: Copy settings.secret.php file.
+    command: 'cp $SRC_DIR/probo/probo.settings.secret.php $SRC_DIR/settings/settings.secret.php'
   - name: Build site
     command: 'cd $SRC_DIR && ./node_modules/.bin/aquifer build'
   - name: Download DB
     command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
-  - name: Probo site setup
-    plugin: Drupal
-    subdirectory: build
-    database: test-export.sql.gz
-    databaseGzipped: true
-    databaseUpdates: false
-    revertFeatures: false
+  - name: Create DB
+    command: mysql -e 'create database drupal'
+  - name: Grant privileges
+    command: mysql -e 'grant all on drupal.* to "root"@"localhost"'
+  - name: Flush privileges
+    command: mysql -e 'flush privileges'
+  - name: Import DB.
+    command: 'gunzip -c $ASSET_DIR/test-export.sql.gz | drush --root="$SRC_DIR/build" sqlc'
   - name: Master Enable
     command: 'drush --root="$SRC_DIR/build" en -y master'
   - name: Master Scope
