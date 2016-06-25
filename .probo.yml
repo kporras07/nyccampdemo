@@ -16,11 +16,11 @@ steps:
   - name: Install node.
     command: apt-get install nodejs -y
   - name: Install npm dependencies.
-    command: 'cd /var/www/nyccampdemo/ && npm install'
+    command: 'cd $SRC_DIR && npm install'
   - name: Install composer dependencies.
-    command: 'cd /var/www/nyccampdemo/ && composer install --prefer-source --no-interaction'
+    command: 'cd $SRC_DIR && composer install --prefer-source --no-interaction'
   - name: Build site
-    command: 'cd /var/www/nyccampdemo/ && ./node_modules/.bin/aquifer build'
+    command: 'cd $SRC_DIR && ./node_modules/.bin/aquifer build'
   - name: Download DB
     command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
   - name: Probo site setup
@@ -31,23 +31,19 @@ steps:
     databaseUpdates: false
     revertFeatures: false
   - name: Master Enable
-    command: 'drush --root="/var/www/nyccampdemo/build" en -y master'
+    command: 'drush --root="$SRC_DIR/build" en -y master'
   - name: Master Scope
-    command: 'drush --root="/var/www/nyccampdemo/build" master-scope dev'
+    command: 'drush --root="$SRC_DIR/build" master-scope dev'
   - name: Master Execute
-    command: 'drush --root="/var/www/nyccampdemo/build" master-execute -y'
+    command: 'drush --root="$SRC_DIR/build" master-execute -y'
   - name: Updb
-    command: 'drush --root="/var/www/nyccampdemo/build" updb -y'
+    command: 'drush --root="$SRC_DIR/build" updb -y'
   - name: Fra
-    command: 'drush --root="/var/www/nyccampdemo/build" fra -y'
+    command: 'drush --root="$SRC_DIR/build" fra -y'
   - name: cc all
-    command: 'drush --root="/var/www/nyccampdemo/build" cc all'
-  - name: Debug
+    command: 'drush --root="$SRC_DIR/build" cc all'
+  - name: Env
     command: 'env'
   - name: ls
-    command: 'ls /build'
-  - name: ls var
-    command: 'ls /var/www'
-  - name: Debug 3
-    command: 'whoami'
+    command: 'ls $SRC_DIR'
 
