@@ -26,14 +26,6 @@ build:
             ln -s ~/.composer/vendor/bin/drush /usr/bin/drush
             # Drupal settings.
             cp ./wercker/wercker.settings.secret.php ./settings/settings.secret.php
-            # Configure Solr.
-            #cp -R /opt/solr-4.3.1 $HOME/solr
-            #curl http://ftp.drupal.org/files/projects/apachesolr-7.x-1.x-dev.tar.gz | tar -xz
-            #cp -r apachesolr/solr-conf/solr-4.x/* $HOME/solr/example/solr/collection1/conf
-            #cd $HOME/solr/example/; java -jar start.jar >> $HOME/solr.log:
-            # Install and start Selenium.
-            #wget http://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar
-            #java -jar selenium-server-standalone-2.48.2.jar:
             # Configure Apache.
             cp ./wercker/nyccampdemo.dev.conf /etc/apache2/sites-available/
             a2ensite nyccampdemo.dev
