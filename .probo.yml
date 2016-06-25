@@ -36,7 +36,7 @@ steps:
   - name: Master Enable
     command: 'drush --root="$SRC_DIR/build" en -y master'
   - name: Master Scope
-    command: 'drush --root="$SRC_DIR/build" master-scope dev'
+    command: 'drush --root="$SRC_DIR/build" master-scope development'
   - name: Master Execute
     command: 'drush --root="$SRC_DIR/build" master-execute -y'
   - name: Updb
@@ -45,8 +45,7 @@ steps:
     command: 'drush --root="$SRC_DIR/build" fra -y'
   - name: cc all
     command: 'drush --root="$SRC_DIR/build" cc all'
-  - name: Env
-    command: 'env'
-  - name: ls
-    command: 'ls $SRC_DIR'
+  - name: Setup Drupal
+    plugin: Drupal
+    subDirectory: build
 
