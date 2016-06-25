@@ -16,11 +16,11 @@ steps:
   - name: Install node.
     command: apt-get install nodejs -y
   - name: Install npm dependencies.
-    command: npm install
+    command: 'cd /var/www/nyccampdemo/ && npm install'
   - name: Install composer dependencies.
-    command: composer install --prefer-source --no-interaction
+    command: 'cd /var/www/nyccampdemo/ && composer install --prefer-source --no-interaction'
   - name: Build site
-    command: ./node_modules/.bin/aquifer build
+    command: 'cd /var/www/nyccampdemo/ && ./node_modules/.bin/aquifer build'
   - name: Download DB
     command: '$HOME/terminus site backups get --site=nyccampdemo --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
   - name: Probo site setup
