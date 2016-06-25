@@ -13,15 +13,22 @@ steps:
     databaseGzipped: true
     databaseUpdates: false
     revertFeatures: false
-  - name: Master
+  - name: Master Enable
     command: 'drush --root="/var/www/nyccampdemo/build" en -y master'
+  - name: Master Scope
     command: 'drush --root="/var/www/nyccampdemo/build" master-scope dev'
+  - name: Master Execute
     command: 'drush --root="/var/www/nyccampdemo/build" master-execute -y'
+  - name: Updb
     command: 'drush --root="/var/www/nyccampdemo/build" updb -y'
+  - name: Fra
     command: 'drush --root="/var/www/nyccampdemo/build" fra -y'
+  - name: cc all
     command: 'drush --root="/var/www/nyccampdemo/build" cc all'
   - name: Debug
     command: env
+  - name: Debug 2
     command: pwd
+  - name: Debug 3
     command: whoami
 
