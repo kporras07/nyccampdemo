@@ -45,7 +45,9 @@ steps:
   - name: Debug
     command: 'env'
   - name: ls
-    command: 'ls'
+    command: 'ls /build'
+  - name: ls var
+    command: 'ls /var/www'
   - name: Debug 3
     command: 'whoami'
 
