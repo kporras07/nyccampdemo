@@ -1,0 +1,23 @@
+assets:
+  - export.sh
+steps:
+  - name: Download terminus
+    command: curl https://github.com/pantheon-systems/terminus/releases/download/0.11.0/terminus.phar -L -o $HOME/terminus && chmod +x $HOME/terminus
+  - name: Login to terminus
+    command: source $ASSET_DIR/token.sh ; $HOME/terminus auth login --machine-token=$PANTHEON_TOKEN
+  - name: Download DB
+    command: '$HOME/terminus site backups get --site=test-db-export --env=dev --element=database --to=$ASSET_DIR/test-export.sql.gz --latest'
+  - name: Probo site setup
+    plugin: Drupal
+    database: test-export.sql.gz
+    databaseGzipped: true
+    databaseUpdates: false
+    revertFeatures: false
+  - name: Master
+    command: 'drush --root="/var/www/nyccampdemo/build" en -y master'
+    command: 'drush --root="/var/www/nyccampdemo/build" master-scope dev'
+    command: 'drush --root="/var/www/nyccampdemo/build" master-execute -y'
+    command: 'drush --root="/var/www/nyccampdemo/build" updb -y'
+    command: 'drush --root="/var/www/nyccampdemo/build" fra -y'
+    command: 'drush --root="/var/www/nyccampdemo/build" cc all'
+
