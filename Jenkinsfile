@@ -14,6 +14,7 @@ node {
             sh '''#!/bin/bash
             whoami
             env
+            source ~/.bashrc
             nvm use 4
             npm install
             composer install --prefer-source --no-interaction
