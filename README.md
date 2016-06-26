@@ -1,3 +1,10 @@
+[![CircleCI](https://circleci.com/gh/kporras07/nyccampdemo.svg?style=svg)](https://circleci.com/gh/kporras07/nyccampdemo)
+
+[![wercker status](https://app.wercker.com/status/efab95e41ae5ae4bedf061418019fc6f/m/develop "wercker status")](https://app.wercker.com/project/bykey/efab95e41ae5ae4bedf061418019fc6f)
+
+[![Build Status](https://travis-ci.org/kporras07/nyccampdemo.svg?branch=develop)](https://travis-ci.org/kporras07/nyccampdemo)
+
+[![Build Status](http://104.131.51.193:8080/buildStatus/icon?job=Build/develop)](http://104.131.51.193:8080/job/Build/job/develop/)
 # nyccampdemo
 
 nyccampdemo Drupal Distribution
