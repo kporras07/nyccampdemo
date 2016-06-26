@@ -11,8 +11,10 @@ node('node') {
 
        stage 'Install requirements'
 
-            sh 'npm install'
-            sh 'composer install --prefer-source --no-interaction'
+            sh 'whoami'
+            sh 'env'
+            sh 'pwd'
+            sh 'ls'
 
         }
 
