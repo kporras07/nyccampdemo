@@ -11,6 +11,9 @@ node {
 
        stage 'Install requirements'
 
+            sh 'env'
+            sh 'whoami'
+            sh 'source ~/.bashrc'
             sh 'nvm use 4'
             sh 'npm install'
             sh 'composer install --prefer-source --no-interaction'
@@ -18,7 +21,6 @@ node {
             sh './node_modules/.bin/gulp phplint'
             sh './node_modules/.bin/gulp drupalcs'
             sh './node_modules/.bin/gulp eslint'
-            sh 'env'
 
         }
 
