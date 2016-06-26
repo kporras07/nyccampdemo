@@ -11,10 +11,14 @@ node {
 
        stage 'Install requirements'
 
-            sh 'whoami'
+            sh 'nvm use 4'
+            sh 'npm install'
+            sh 'composer install --prefer-source --no-interaction'
+            sh './node_modules/.bin/aquifer build'
+            sh './node_modules/.bin/gulp phplint'
+            sh './node_modules/.bin/gulp drupalcs'
+            sh './node_modules/.bin/gulp eslint'
             sh 'env'
-            sh 'pwd'
-            sh 'ls'
 
         }
 
