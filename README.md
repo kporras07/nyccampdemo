@@ -44,6 +44,7 @@ Prepare the local site:
 Prepare for local development:
 
 * Visit http://editorconfig.org/ for instructions on how to configure your IDE or editor to use the included `.editorconfig` file.
+* Copy example.config.yml to default.config.yml
 * Edit default.config.yml and update the following:
     * vagrant_synced_folders - local_path: `your-path` (modify as necessary)
 * [Mac/Linux only] Install Ansible Galaxy roles required for this VM: `sudo ansible-galaxy install -r provisioning/requirements.yml --force`
