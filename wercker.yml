@@ -5,7 +5,7 @@ build:
         name: Install Dependencies
         code: |
             apt-get update -y
-            apt-get install -y build-essential curl wget git php5-curl unzip php5-mysql php5-gd
+            apt-get install -y build-essential curl wget git php5-curl unzip php5-mysql php5-gd ruby
             wget -q https://deb.nodesource.com/setup_4.x
             chmod +x setup_4.x
             ./setup_4.x
@@ -72,6 +72,13 @@ build:
             drush @nyccampdemo.nyccampdemo.dev ups | grep -qi "update available" && (echo 'Updates available FAIL' && exit 1) || (echo 'No updates available PASS' && exit 0)
             # Behat tests.
             ./vendor/bin/behat -p wercker
+    - iansmith9876/pretty-slack-notify@0.0.8
+    after-steps:
+    - iansmith9876/pretty-slack-notify:
+        team: manati
+        token: $SLACK_API_TOKEN
+        channel: ci-notifications
+        username: ci
 deploy:
     steps:
     - script:
