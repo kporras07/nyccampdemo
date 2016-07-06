@@ -1,7 +1,6 @@
 box: linode/lamp
 build:
     steps:
-    - iansmith9876/pretty-slack-notify@0.0.8
     - script:
         name: Install Dependencies
         code: |
@@ -73,6 +72,7 @@ build:
             drush @nyccampdemo.nyccampdemo.dev ups | grep -qi "update available" && (echo 'Updates available FAIL' && exit 1) || (echo 'No updates available PASS' && exit 0)
             # Behat tests.
             ./vendor/bin/behat -p wercker
+    - iansmith9876/pretty-slack-notify@0.0.8
     after-steps:
     - iansmith9876/pretty-slack-notify:
         team: manati
