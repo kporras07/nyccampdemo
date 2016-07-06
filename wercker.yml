@@ -6,7 +6,7 @@ build:
         name: Install Dependencies
         code: |
             apt-get update -y
-            apt-get install -y build-essential curl wget git php5-curl unzip php5-mysql php5-gd
+            apt-get install -y build-essential curl wget git php5-curl unzip php5-mysql php5-gd ruby
             wget -q https://deb.nodesource.com/setup_4.x
             chmod +x setup_4.x
             ./setup_4.x
